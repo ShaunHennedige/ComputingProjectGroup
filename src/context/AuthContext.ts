@@ -1,6 +1,8 @@
 import createDataContext from './createDataContext';
+import SecureStore from 'expo-secure-store';
 
 const authReducer = (state, action) => {
+  console.log(state); // debug
   switch (action.type) {
     case 'signout':
       return {token: null, email: ''};
@@ -14,9 +16,28 @@ const authReducer = (state, action) => {
         token: action.payload.token,
         email: action.payload.email,
       };
-    default:
-      return state;
+    case 'restore':
+      return {
+        token: action.payload.token,
+      };
   }
+};
+
+const authBootstrap = async dispatch => {
+  let token;
+
+  try {
+    token = await SecureStore.getItemAsync('token');
+  } catch (error) {
+    // retrieval failed
+  }
+
+  dispatch({
+    type: 'restore',
+    payload: {
+      token: token,
+    },
+  });
 };
 
 const signup = dispatch => {
@@ -27,7 +48,7 @@ const signup = dispatch => {
       type: 'signup',
       payload: {
         token: 'dummy-token',
-        email,
+        email: email,
       },
     });
   };
@@ -41,7 +62,7 @@ const signin = dispatch => {
       type: 'signin',
       payload: {
         token: 'dummy-token',
-        email,
+        email: email,
       },
     });
   };
@@ -55,6 +76,7 @@ const signout = dispatch => {
 
 export const {Provider, Context} = createDataContext(
   authReducer,
+  authBootstrap,
   // Make sure update dispatchers and values here as defined above
   {signin, signout, signup},
   {token: null, email: ''},

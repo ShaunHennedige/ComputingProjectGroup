@@ -1,5 +1,5 @@
-import * as React from 'react';
-import {BottomNavigation, Text} from 'react-native-paper';
+import React from 'react';
+import {BottomNavigation, MD3DarkTheme, Text} from 'react-native-paper';
 import Home from './tabs/Home';
 import Scanner from './tabs/Scanner';
 
@@ -50,6 +50,7 @@ const Dashboard = () => {
       navigationState={{index, routes}}
       onIndexChange={setIndex}
       renderScene={renderScene}
+      //theme={MD3DarkTheme}
     />
   );
 };

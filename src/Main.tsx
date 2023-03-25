@@ -9,34 +9,27 @@ import Auth from './Auth';
 
 const {DarkTheme} = adaptNavigationTheme({reactNavigationDark: DefaultTheme});
 
-export default function App() {
+export default function Main() {
   const {state} = React.useContext(AuthContext);
-  console.log(state);
+  //console.log(state); // debug
 
   const Stack = createStackNavigator();
 
+  // TODO: Fix AuthContext
   return (
     <AuthProvider>
       <NavigationContainer theme={DarkTheme}>
         <Stack.Navigator>
-          {/* {state.token == null ? (
+          {/* {state?.token == null ? (
             <Stack.Screen
               name="Login"
               component={Auth}
               options={{headerShown: false}}
             />
           ) : (
-            <Stack.Screen
-              name="Dashboard"
-              component={Dashboard}
-              options={{headerShown: true}}
-            />
+            <Stack.Screen name="App Name" component={Dashboard} />
           )} */}
-          <Stack.Screen
-            name="Login"
-            component={Auth}
-            options={{headerShown: false}}
-          />
+          <Stack.Screen name="App Name" component={Dashboard} />
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
