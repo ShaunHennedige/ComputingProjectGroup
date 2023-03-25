@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {BottomNavigation, Text} from 'react-native-paper';
-import Home from './Home';
-import Scanner from './Scanner';
+import Home from './tabs/Home';
+import Scanner from './tabs/Scanner';
 
 const MapRoute = () => <Text>Map here</Text>;
 const AdminRoute = () => <Text>Admin here</Text>;

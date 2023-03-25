@@ -1,16 +1,10 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Appbar, Card, Title, Paragraph} from 'react-native-paper';
+import {Card, Title, Paragraph} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Home = () => (
-  <View>
-    <Appbar.Header>
-      <Appbar.Action icon="menu" onPress={() => {}} />
-      <Appbar.Content title="Home" />
-      <Appbar.Action icon="magnify" onPress={() => {}} />
-      <Appbar.Action icon="dots-vertical" onPress={() => {}} />
-    </Appbar.Header>
+  <View style={styles.container}>
     <Card>
       <Card.Cover source={{uri: 'https://picsum.photos/id/690/200/300'}} />
       <Card.Content>

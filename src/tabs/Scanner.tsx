@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import {Text, Button} from 'react-native-paper';
 import {BarCodeScanner} from 'expo-barcode-scanner';
 
-export default function App() {
+export default function Scanner() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
