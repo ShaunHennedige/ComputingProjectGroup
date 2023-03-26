@@ -1,5 +1,5 @@
 import createDataContext from './createDataContext';
-import SecureStore from 'expo-secure-store';
+import * as SecureStore from 'expo-secure-store';
 
 const authReducer = (state, action) => {
   console.log(state); // debug
