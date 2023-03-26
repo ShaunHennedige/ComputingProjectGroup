@@ -31,10 +31,16 @@ export default function Scanner() {
 
   return (
     <View style={styles.container}>
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
-      />
+      {hasPermission === null ? (
+        <Text>Requesting for camera permission</Text>
+      ) : hasPermission === false ? (
+        <Text>No access to camera</Text>
+      ) : (
+        <BarCodeScanner
+          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+          style={StyleSheet.absoluteFillObject}
+        />
+      )}
       {scanned && (
         <Button onPress={() => setScanned(false)}>Tap to Scan Again</Button>
       )}
@@ -45,7 +51,7 @@ export default function Scanner() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });

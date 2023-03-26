@@ -7,7 +7,8 @@ import {
 } from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Context as AuthContext} from './context/AuthContext';
+import {Context as AuthContext} from './util/AuthContext';
+import * as RootNavigation from './util/RootNavigation';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -44,14 +45,14 @@ const Auth = () => {
           style={{marginTop: 15}}
           icon="login"
           mode="contained"
-          onPress={() => signin({email, password})}>
+          onPress={() => RootNavigation.navigate('Dashboard')}>
           Log In
         </Button>
         <Button
           style={{marginTop: 15}}
           icon="send"
           mode="contained"
-          onPress={() => signup({email, password})}>
+          onPress={() => RootNavigation.navigate('Dashboard')}>
           Sign Up
         </Button>
       </SafeAreaView>

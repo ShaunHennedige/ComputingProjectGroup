@@ -1,11 +1,10 @@
 import React from 'react';
-import {BottomNavigation, MD3DarkTheme, Text} from 'react-native-paper';
+import {BottomNavigation} from 'react-native-paper';
 import Home from './tabs/Home';
+import Map from './tabs/Map';
 import Scanner from './tabs/Scanner';
-
-const MapRoute = () => <Text>Map here</Text>;
-const AdminRoute = () => <Text>Admin here</Text>;
-const SettingsRoute = () => <Text>Settings here</Text>;
+import Admin from './tabs/Admin';
+import Settings from './tabs/Settings';
 
 const Dashboard = () => {
   const [index, setIndex] = React.useState(0);
@@ -39,10 +38,10 @@ const Dashboard = () => {
 
   const renderScene = BottomNavigation.SceneMap({
     home: Home,
-    map: MapRoute,
+    map: Map,
     qrscn: Scanner,
-    admin: AdminRoute,
-    settings: SettingsRoute,
+    admin: Admin,
+    settings: Settings,
   });
 
   return (
@@ -50,7 +49,6 @@ const Dashboard = () => {
       navigationState={{index, routes}}
       onIndexChange={setIndex}
       renderScene={renderScene}
-      //theme={MD3DarkTheme}
     />
   );
 };
