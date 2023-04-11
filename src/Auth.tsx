@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import {StyleSheet, Image} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Context as AuthContext} from './util/AuthContext';
-import * as RootNavigation from './util/RootNavigation';
+import {AuthContext} from './util/AuthContext';
+//import * as RootNavigation from './util/RootNavigation';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {signin, signup} = React.useContext(AuthContext);
+  const {signIn} = React.useContext(AuthContext);
 
   return (
     <SafeAreaView style={style.container}>
@@ -36,14 +36,14 @@ const Auth = () => {
         style={{marginTop: 15}}
         icon="login"
         mode="contained"
-        onPress={() => RootNavigation.navigate('Dashboard')}>
-        Log In
+        onPress={() => signIn(email, password)}>
+        Sign In
       </Button>
       <Button
         style={{marginTop: 15}}
         icon="send"
         mode="contained"
-        onPress={() => RootNavigation.navigate('Dashboard')}>
+        onPress={() => {}}>
         Sign Up
       </Button>
     </SafeAreaView>
