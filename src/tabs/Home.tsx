@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {Card, Title, Paragraph, IconButton} from 'react-native-paper';
 import styles from '../styles';
 
-export default function Home() {
+const Home = () => {
   return (
     <View style={styles.container}>
       <Card>
@@ -23,4 +23,6 @@ export default function Home() {
       </Card>
     </View>
   );
-}
+};
+
+export default Home;

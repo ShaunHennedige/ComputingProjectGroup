@@ -12,10 +12,12 @@ const AuthContext = React.createContext({
   signIn: (_email: string, _password: string) => {},
   signUp: (_email: string, _password: string) => {},
   signOut: () => {},
+  loading: true,
 });
 
 const AuthProvider = ({children}) => {
   const [auth, setAuthState] = React.useState(authStruct);
+  const [loading, setLoading] = React.useState(true);
 
   // Get current auth state from storage
   const getAuthState = async () => {
@@ -25,16 +27,21 @@ const AuthProvider = ({children}) => {
       setAuthState(authData);
     } catch (err) {
       setAuthState(authStruct);
+    } finally {
+      setLoading(false);
     }
   };
 
   // Update storage & context state
   const updateAuth = async (authData: typeof authStruct) => {
+    setLoading(true);
     try {
       await SecureStore.setItemAsync('auth', JSON.stringify(authData));
-      setAuthState(auth);
+      setAuthState(authData);
     } catch (error) {
       Promise.reject(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,10 +65,10 @@ const AuthProvider = ({children}) => {
 
   React.useEffect(() => {
     getAuthState();
-  });
+  }, []);
 
   return (
-    <AuthContext.Provider value={{auth, signIn, signUp, signOut}}>
+    <AuthContext.Provider value={{auth, signIn, signUp, signOut, loading}}>
       {children}
     </AuthContext.Provider>
   );
