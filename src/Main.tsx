@@ -8,6 +8,7 @@ import {
   Modal,
   Portal,
 } from 'react-native-paper';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {AuthContext} from './util/AuthContext';
 import {navigationRef} from './util/RootNavigation';
 import Dashboard from './Dashborad';
@@ -37,20 +38,22 @@ const Main = () => {
   const Stack = createStackNavigator();
 
   return (
-    <NavigationContainer theme={DarkTheme} ref={navigationRef}>
-      <LoadStatus isLoading={loading} />
-      <Stack.Navigator>
-        {auth.logged ? (
-          <Stack.Screen
-            name="Dashboard"
-            component={Dashboard}
-            options={{headerShown: false}}
-          />
-        ) : (
-          <Stack.Screen name="Welcome" component={Auth} />
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer theme={DarkTheme} ref={navigationRef}>
+        <LoadStatus isLoading={loading} />
+        <Stack.Navigator>
+          {auth.logged ? (
+            <Stack.Screen
+              name="Dashboard"
+              component={Dashboard}
+              options={{headerShown: false}}
+            />
+          ) : (
+            <Stack.Screen name="Welcome" component={Auth} />
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 
