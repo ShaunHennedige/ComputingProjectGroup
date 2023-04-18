@@ -5,7 +5,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 40,
+  },
+  maps: {
+    height: '100%',
+    width: '100%',
   },
 });
 

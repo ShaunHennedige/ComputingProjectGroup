@@ -3,7 +3,6 @@ import {StyleSheet, Image} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {AuthContext} from './util/AuthContext';
-//import * as RootNavigation from './util/RootNavigation';
 
 const Auth = () => {
   const [email, setEmail] = useState('');

@@ -1,6 +1,7 @@
 import React from 'react';
 import * as SecureStore from 'expo-secure-store';
 
+// default auth data
 const authStruct = {
   email: '',
   token: '',
@@ -24,7 +25,7 @@ const AuthProvider = ({children}) => {
     try {
       const authDataString = await SecureStore.getItemAsync('auth');
       const authData = JSON.parse(authDataString);
-      setAuthState(authData);
+      authData === null ? setAuthState(authStruct) : setAuthState(authData);
     } catch (err) {
       setAuthState(authStruct);
     } finally {
