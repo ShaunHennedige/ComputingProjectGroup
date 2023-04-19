@@ -9,7 +9,7 @@ const Settings = () => {
   return (
     <View style={styles.container}>
       <Text>Settings page here</Text>
-      <Text>Username: {auth.email}</Text>
+      <Text>E-mail: {auth.email}</Text>
       <View>
         <Button icon="logout" mode="contained" onPress={signOut}>
           Sign Out

@@ -4,7 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 // default auth data
 const authStruct = {
   email: '',
-  token: '',
+  uuid: '',
   logged: false,
 };
 
@@ -35,7 +35,6 @@ const AuthProvider = ({children}) => {
 
   // Update storage & context state
   const updateAuth = async (authData: typeof authStruct) => {
-    setLoading(true);
     try {
       await SecureStore.setItemAsync('auth', JSON.stringify(authData));
       setAuthState(authData);
@@ -47,17 +46,19 @@ const AuthProvider = ({children}) => {
   };
 
   const signIn = (email: string, password: string) => {
+    setLoading(true);
     // signIn function goes here
     // and then set the state
-    let token = password.length * 9876;
-    updateAuth({email: email, token: token.toString(), logged: true});
+    let uuid = password.length * 9876;
+    updateAuth({email: email, uuid: uuid.toString(), logged: true});
   };
 
   const signUp = (email: string, password: string) => {
+    setLoading(true);
     // implement signUp
     // and authenticate the user
-    let token = password.length * 9876;
-    updateAuth({email: email, token: token.toString(), logged: true});
+    let uuid = password.length * 9876;
+    updateAuth({email: email, uuid: uuid.toString(), logged: true});
   };
 
   const signOut = () => {

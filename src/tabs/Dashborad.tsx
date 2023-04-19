@@ -1,11 +1,11 @@
 import React from 'react';
 import {BottomNavigation} from 'react-native-paper';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import Home from './tabs/Home';
-import Map from './tabs/Map';
-import Scanner from './tabs/Scanner';
-import Admin from './tabs/Admin';
-import Settings from './tabs/Settings';
+import Home from './Home';
+import Map from './Map';
+import Scanner from './Scanner';
+import Admin from './Admin';
+import Settings from './Settings';
 
 const Dashboard = () => {
   const insets = useSafeAreaInsets();

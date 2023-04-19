@@ -11,8 +11,9 @@ import {
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {AuthContext} from './util/AuthContext';
 import {navigationRef} from './util/RootNavigation';
-import Dashboard from './Dashborad';
-import Auth from './Auth';
+import Dashboard from './tabs/Dashborad';
+import Auth from './auth/Auth';
+import SignUp from './auth/SignUp';
 
 const {DarkTheme} = adaptNavigationTheme({reactNavigationDark: DefaultTheme});
 
@@ -49,7 +50,10 @@ const Main = () => {
               options={{headerShown: false}}
             />
           ) : (
-            <Stack.Screen name="Welcome" component={Auth} />
+            <>
+              <Stack.Screen name="Welcome" component={Auth} />
+              <Stack.Screen name="Sign Up" component={SignUp} />
+            </>
           )}
         </Stack.Navigator>
       </NavigationContainer>
