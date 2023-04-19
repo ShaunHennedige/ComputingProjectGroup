@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Text, Button} from 'react-native-paper';
 import {BarCodeScanner} from 'expo-barcode-scanner';
+import styles from '../styles';
 
 const Scanner = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -20,14 +21,8 @@ const Scanner = () => {
     setScanned(true);
     // eslint-disable-next-line no-alert
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    // logic for handling the scanned qr goes here
   };
-
-  if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
-  }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
-  }
 
   return (
     <View style={styles.container}>
@@ -36,24 +31,20 @@ const Scanner = () => {
       ) : hasPermission === false ? (
         <Text>No access to camera</Text>
       ) : (
-        <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={StyleSheet.absoluteFillObject}
-        />
+        !scanned && (
+          <BarCodeScanner
+            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+            style={StyleSheet.absoluteFillObject}
+          />
+        )
       )}
       {scanned && (
-        <Button onPress={() => setScanned(false)}>Tap to Scan Again</Button>
+        <Button onPress={() => setScanned(false)} mode="contained">
+          Tap to Scan Again
+        </Button>
       )}
     </View>
   );
 };
 
 export default Scanner;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
