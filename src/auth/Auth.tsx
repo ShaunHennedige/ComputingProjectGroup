@@ -8,15 +8,27 @@ import {StackScreenProps} from '@react-navigation/stack';
 const Auth: React.FC<StackScreenProps<any>> = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {signIn} = React.useContext(AuthContext);
+  const {signIn, status} = React.useContext(AuthContext);
 
   return (
     <View style={styles.auth}>
       <Image
         source={require('../../assets/adaptive-icon.png')}
         resizeMode="center"
-        style={{alignSelf: 'center', height: 280}}
+        style={{alignSelf: 'center', height: 280, margin: 15}}
       />
+      {!!status && (
+        <Text
+          variant="labelLarge"
+          style={{
+            alignSelf: 'center',
+            margin: 10,
+            color: 'red',
+            fontWeight: 'bold',
+          }}>
+          {status}
+        </Text>
+      )}
       <TextInput
         style={{marginTop: 15}}
         label="E-mail"

@@ -1,76 +1,81 @@
 import React from 'react';
-import * as SecureStore from 'expo-secure-store';
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
+import app from '../../config/firebaseConfig';
 
-// default auth data
-const authStruct = {
-  email: '',
-  uuid: '',
-  logged: false,
-};
+const authState = getAuth(app);
 
 const AuthContext = React.createContext({
-  auth: authStruct,
   signIn: (_email: string, _password: string) => {},
   signUp: (_email: string, _password: string) => {},
   signOut: () => {},
   loading: true,
+  logged: false,
+  status: '',
 });
 
 const AuthProvider = ({children}) => {
-  const [auth, setAuthState] = React.useState(authStruct);
+  // const [auth, setAuthState] = React.useState(authStruct);
   const [loading, setLoading] = React.useState(true);
+  const [logged, setLogged] = React.useState(false);
+  const [status, setStatus] = React.useState('');
 
-  // Get current auth state from storage
-  const getAuthState = async () => {
+  const signInFunc = async (email: string, password: string) => {
+    setLoading(true);
     try {
-      const authDataString = await SecureStore.getItemAsync('auth');
-      const authData = JSON.parse(authDataString);
-      authData === null ? setAuthState(authStruct) : setAuthState(authData);
-    } catch (err) {
-      setAuthState(authStruct);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Update storage & context state
-  const updateAuth = async (authData: typeof authStruct) => {
-    try {
-      await SecureStore.setItemAsync('auth', JSON.stringify(authData));
-      setAuthState(authData);
+      await signInWithEmailAndPassword(authState, email, password);
+      setStatus('');
+      setLogged(true);
     } catch (error) {
-      Promise.reject(error);
+      console.log(error.message);
+      setStatus('Invalid Credentials');
     } finally {
       setLoading(false);
     }
   };
 
-  const signIn = (email: string, password: string) => {
-    setLoading(true);
-    // signIn function goes here
-    // and then set the state
-    let uuid = password.length * 9876;
-    updateAuth({email: email, uuid: uuid.toString(), logged: true});
-  };
-
-  const signUp = (email: string, password: string) => {
-    setLoading(true);
+  // TODO
+  const signUpFunc = async (email: string, password: string) => {
     // implement signUp
     // and authenticate the user
-    let uuid = password.length * 9876;
-    updateAuth({email: email, uuid: uuid.toString(), logged: true});
   };
 
-  const signOut = () => {
-    updateAuth(authStruct);
+  const signOutFunc = async () => {
+    setLoading(true);
+    setLogged(false);
+    signOut(authState);
+    setLoading(false);
   };
 
   React.useEffect(() => {
-    getAuthState();
-  }, []);
+    // looks out for changes in auth state
+    // important when loading user sessions at startup
+    onAuthStateChanged(authState, user => {
+      if (user) {
+        console.log(`User found: ${user.uid}`);
+        logged ? null : setLogged(true);
+      } else {
+        console.log('No users found.');
+        logged ? setLogged(false) : null;
+      }
+      setLoading(false);
+    });
+  }, [logged]);
 
   return (
-    <AuthContext.Provider value={{auth, signIn, signUp, signOut, loading}}>
+    <AuthContext.Provider
+      value={{
+        signIn: signInFunc,
+        signUp: signUpFunc,
+        signOut: signOutFunc,
+        loading,
+        logged,
+        status,
+      }}>
       {children}
     </AuthContext.Provider>
   );

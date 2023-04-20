@@ -35,7 +35,7 @@ const LoadStatus = (props: {isLoading: boolean}) => {
 };
 
 const Main = () => {
-  const {auth, loading} = React.useContext(AuthContext);
+  const {logged, loading} = React.useContext(AuthContext);
   const Stack = createStackNavigator();
 
   return (
@@ -43,7 +43,7 @@ const Main = () => {
       <NavigationContainer theme={DarkTheme} ref={navigationRef}>
         <LoadStatus isLoading={loading} />
         <Stack.Navigator>
-          {auth.logged ? (
+          {logged ? (
             <Stack.Screen
               name="Dashboard"
               component={Dashboard}

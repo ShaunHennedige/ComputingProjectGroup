@@ -1,21 +1,21 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {TextInput, Button} from 'react-native-paper';
+import {TextInput, Button, Text} from 'react-native-paper';
 import {AuthContext} from '../util/AuthContext';
 import styles from '../styles';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [cpassword, setCpassword] = useState('');
   const {signUp} = React.useContext(AuthContext);
 
   return (
     <View style={styles.auth}>
-      {/* <Image
-        source={require('../../assets/adaptive-icon.png')}
-        resizeMode="center"
-        style={{alignSelf: 'center', height: 280}}
-      /> */}
+      <Text variant="bodyMedium" style={{alignSelf: 'center'}}>
+        Welcome to our Travel Companion app. To get started, please enter your
+        details below.
+      </Text>
       <TextInput
         style={{marginTop: 15}}
         label="E-mail"
@@ -28,6 +28,13 @@ const SignUp = () => {
         secureTextEntry
         mode="flat"
         onChangeText={setPassword}
+      />
+      <TextInput
+        style={{marginTop: 15}}
+        label="Confirm password"
+        secureTextEntry
+        mode="flat"
+        onChangeText={setCpassword}
       />
       <Button
         style={{margin: 15}}
