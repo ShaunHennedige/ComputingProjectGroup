@@ -6,7 +6,7 @@ import styles from '../styles';
 
 const Scanner = () => {
   const [hasPermission, setHasPermission] = useState(null);
-  const [scanned, setScanned] = useState(false);
+  const [scanned, setScanned] = useState(true);
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -40,7 +40,7 @@ const Scanner = () => {
       )}
       {scanned && (
         <Button onPress={() => setScanned(false)} mode="contained">
-          Tap to Scan Again
+          Tap to Scan
         </Button>
       )}
     </View>

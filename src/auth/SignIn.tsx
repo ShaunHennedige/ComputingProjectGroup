@@ -1,30 +1,18 @@
-/* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import {AuthContext} from '../util/AuthContext';
 import styles from '../styles';
 
-const SignUp = () => {
+const SignIn = () => {
   const [email, setEmail] = useState('');
-  const [pass01, setPass01] = useState('');
-  const [pass02, setPass02] = useState('');
-  const [role, setRole] = useState('');
-  const {signUp, status} = React.useContext(AuthContext);
-
-  const onSignUp = () => {
-    if (pass01 !== pass02) {
-      // eslint-disable-next-line no-alert
-      alert('Password confirmation does not match!');
-    } else {
-      signUp(email, pass01, role);
-    }
-  };
+  const [password, setPassword] = useState('');
+  const {signIn, status} = React.useContext(AuthContext);
 
   return (
     <View style={styles.auth}>
       <Text variant="bodyMedium" style={{alignSelf: 'center'}}>
-        Welcome to our Travel Companion app. To get started, please enter your details below.
+        Sign in with existing credentials.
       </Text>
       {!!status && (
         <Text
@@ -49,24 +37,17 @@ const SignUp = () => {
         label="Password"
         secureTextEntry
         mode="flat"
-        onChangeText={setPass01}
-      />
-      <TextInput
-        style={{marginTop: 15}}
-        label="Confirm Password"
-        secureTextEntry
-        mode="flat"
-        onChangeText={setPass02}
+        onChangeText={setPassword}
       />
       <Button
         style={{margin: 15}}
         icon="login"
         mode="contained"
-        onPress={onSignUp}>
+        onPress={() => signIn(email, password)}>
         Continue
       </Button>
     </View>
   );
 };
 
-export default SignUp;
+export default SignIn;

@@ -1,6 +1,5 @@
 import React from 'react';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
 import {
   adaptNavigationTheme,
   ActivityIndicator,
@@ -9,11 +8,9 @@ import {
   Portal,
 } from 'react-native-paper';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {AuthStackScreen} from './auth/Auth';
+import {UserTabsScreen} from './tabs/UserTabs';
 import {AuthContext} from './util/AuthContext';
-import {navigationRef} from './util/RootNavigation';
-import Dashboard from './tabs/Dashborad';
-import Auth from './auth/Auth';
-import SignUp from './auth/SignUp';
 
 const {DarkTheme} = adaptNavigationTheme({reactNavigationDark: DefaultTheme});
 
@@ -36,26 +33,12 @@ const LoadStatus = (props: {isLoading: boolean}) => {
 
 const Main = () => {
   const {logged, loading} = React.useContext(AuthContext);
-  const Stack = createStackNavigator();
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer theme={DarkTheme} ref={navigationRef}>
+      <NavigationContainer theme={DarkTheme}>
         <LoadStatus isLoading={loading} />
-        <Stack.Navigator>
-          {logged ? (
-            <Stack.Screen
-              name="Dashboard"
-              component={Dashboard}
-              options={{headerShown: false}}
-            />
-          ) : (
-            <>
-              <Stack.Screen name="Welcome" component={Auth} />
-              <Stack.Screen name="Sign Up" component={SignUp} />
-            </>
-          )}
-        </Stack.Navigator>
+        {!loading && logged ? <UserTabsScreen /> : <AuthStackScreen />}
       </NavigationContainer>
     </SafeAreaProvider>
   );

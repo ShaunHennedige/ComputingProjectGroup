@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Image, View} from 'react-native';
-import {TextInput, Button, Text} from 'react-native-paper';
+import {Button, Text} from 'react-native-paper';
 import {AuthContext} from '../util/AuthContext';
+import {StackScreenProps, createStackNavigator} from '@react-navigation/stack';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 import styles from '../styles';
-import {StackScreenProps} from '@react-navigation/stack';
 
 const Auth: React.FC<StackScreenProps<any>> = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const {signIn, status} = React.useContext(AuthContext);
+  const {anonLog} = React.useContext(AuthContext);
 
   return (
     <View style={styles.auth}>
@@ -17,46 +17,37 @@ const Auth: React.FC<StackScreenProps<any>> = ({navigation}) => {
         resizeMode="center"
         style={{alignSelf: 'center', height: 280, margin: 15}}
       />
-      {!!status && (
-        <Text
-          variant="labelLarge"
-          style={{
-            alignSelf: 'center',
-            margin: 10,
-            color: 'red',
-            fontWeight: 'bold',
-          }}>
-          {status}
-        </Text>
-      )}
-      <TextInput
-        style={{marginTop: 15}}
-        label="E-mail"
-        mode="flat"
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={{marginTop: 15}}
-        label="Password"
-        secureTextEntry
-        mode="flat"
-        onChangeText={setPassword}
-      />
       <Button
-        style={{margin: 15}}
-        icon="login"
+        style={{margin: 10}}
         mode="contained"
-        onPress={() => signIn(email, password)}>
+        onPress={() => navigation.navigate('Sign In')}>
         Sign In
       </Button>
-      <Text
-        variant="bodySmall"
-        style={{textDecorationLine: 'underline', alignSelf: 'center'}}
+      <Button
+        style={{margin: 10}}
+        mode="contained"
         onPress={() => navigation.navigate('Sign Up')}>
-        Don't have an account? Click here to Sign Up!
+        Sign Up
+      </Button>
+      <Text variant="bodySmall" style={{alignSelf: 'center'}}>
+        Don't want an account? Proceed anonymously.
       </Text>
+      <Button style={{margin: 10}} mode="contained" onPress={anonLog}>
+        Anonymous Signin
+      </Button>
     </View>
   );
 };
 
-export default Auth;
+const AuthStack = createStackNavigator();
+const AuthStackScreen = () => {
+  return (
+    <AuthStack.Navigator initialRouteName="Welcome">
+      <AuthStack.Screen name="Welcome" component={Auth} />
+      <AuthStack.Screen name="Sign In" component={SignIn} />
+      <AuthStack.Screen name="Sign Up" component={SignUp} />
+    </AuthStack.Navigator>
+  );
+};
+
+export {AuthStackScreen};
