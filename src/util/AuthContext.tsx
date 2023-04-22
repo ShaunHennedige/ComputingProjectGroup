@@ -45,6 +45,7 @@ const AuthProvider = ({children}) => {
     } catch (error) {
       console.log(error.message);
       setStatus('Something went wrong. Please try again.');
+      setLoading(false);
     }
   };
 
@@ -68,6 +69,7 @@ const AuthProvider = ({children}) => {
     } catch (error) {
       console.log(error.message);
       setStatus('Something went wrong. Please try again.');
+      setLoading(false);
     }
   };
 
@@ -80,6 +82,7 @@ const AuthProvider = ({children}) => {
     } catch (error) {
       console.log(error.message);
       setStatus('Something went wrong. Please try again.');
+      setLoading(false);
     }
   };
 
