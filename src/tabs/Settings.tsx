@@ -3,17 +3,18 @@ import {View} from 'react-native';
 import {Text, Button} from 'react-native-paper';
 import {AuthContext} from '../util/AuthContext';
 import {getAuth} from 'firebase/auth';
-import app from '../../config/firebaseConfig';
-import styles from '../styles';
+import {app} from '../../config/FirebaseConfig';
+import styles from '../util/styles';
 
+const {currentUser} = getAuth(app);
 const Settings = () => {
-  const {signOut} = React.useContext(AuthContext);
-  const auth = getAuth(app);
+  const {signOut, role} = React.useContext(AuthContext);
   return (
     <View style={styles.container}>
       <Text>Settings page here</Text>
-      <Text>E-mail: {auth.currentUser.email}</Text>
-      <Text>User UID: {auth.currentUser.uid}</Text>
+      <Text>E-mail: {currentUser?.email ? currentUser.email : 'none'}</Text>
+      <Text>Role: {role}</Text>
+      <Text>User UID: {currentUser?.uid ? currentUser.uid : 'none'}</Text>
       <View>
         <Button
           icon="logout"
