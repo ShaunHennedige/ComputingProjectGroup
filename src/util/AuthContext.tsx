@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  getAuth,
   onAuthStateChanged,
   beforeAuthStateChanged,
   signInAnonymously,
@@ -8,10 +7,8 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import {app} from '../../config/FirebaseConfig';
+import {auth} from '../../config/FirebaseConfig';
 import {setUserData, getUserData} from './FirestoreUtils';
-
-const authState = getAuth(app);
 
 enum Roles {
   Admin = 'ADMIN',
@@ -40,7 +37,7 @@ const AuthProvider = ({children}) => {
     setLoading(true);
     try {
       // user sign in
-      await signInWithEmailAndPassword(authState, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
       setStatus('');
     } catch (error) {
       console.log(error.message);
@@ -58,7 +55,7 @@ const AuthProvider = ({children}) => {
     try {
       // user sign up
       const {user} = await createUserWithEmailAndPassword(
-        authState,
+        auth,
         email,
         password,
       );
@@ -77,7 +74,7 @@ const AuthProvider = ({children}) => {
     setLoading(true);
     try {
       // anon mode
-      await signInAnonymously(authState);
+      await signInAnonymously(auth);
       setStatus('');
     } catch (error) {
       console.log(error.message);
@@ -87,7 +84,7 @@ const AuthProvider = ({children}) => {
   };
 
   const signOutFunc = async () => {
-    signOut(authState);
+    signOut(auth);
     setRole(Roles.Anon);
   };
 
@@ -102,13 +99,13 @@ const AuthProvider = ({children}) => {
     };
 
     // watches auth state changes runs a callback before the change
-    beforeAuthStateChanged(authState, () => {
+    beforeAuthStateChanged(auth, () => {
       setLoading(true);
     });
 
     // looks out for changes in auth state
     // important when loading user sessions at startup
-    onAuthStateChanged(authState, async user => {
+    onAuthStateChanged(auth, async user => {
       if (user) {
         console.log(`User found: ${user.uid}`);
         await evalLogged(true, user.uid);

@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@expo/vector-icons':
+    specifier: ^13.0.0
+    version: 13.0.0
   '@react-native-async-storage/async-storage':
     specifier: 1.17.11
     version: 1.17.11(react-native@0.71.6)
@@ -22,6 +25,9 @@ dependencies:
   expo-constants:
     specifier: ~14.2.1
     version: 14.2.1(expo@48.0.9)
+  expo-location:
+    specifier: ~15.1.1
+    version: 15.1.1(expo@48.0.9)
   expo-status-bar:
     specifier: ~1.4.4
     version: 1.4.4
@@ -4694,6 +4700,14 @@ packages:
 
   /expo-keep-awake@12.0.1(expo@48.0.9):
     resolution: {integrity: sha512-hqeCnb4033TyuZaXs93zTK7rjVJ3bywXATyMmKmKkLEsH2PKBAl/VmjlCOPQL/2Ncqz6aj7Wo//tjeJTARBD4g==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.9(@babel/core@7.20.2)
+    dev: false
+
+  /expo-location@15.1.1(expo@48.0.9):
+    resolution: {integrity: sha512-hoKRlmi6Ya+NeZ72Zt385SDcSsIDpJI60TCBVO+Hc9xfKA9Hyminyyo5WiwI8J03igmPTCl8Y37MxBNKY9AWkg==}
     peerDependencies:
       expo: '*'
     dependencies:

@@ -20,6 +20,13 @@ export default {
           cameraPermission: 'Allow $(PRODUCT_NAME) to access camera.',
         },
       ],
+      [
+        'expo-location',
+        {
+          locationAlwaysAndWhenInUsePermission:
+            'Allow $(PRODUCT_NAME) to use your location.',
+        },
+      ],
     ],
     assetBundlePatterns: ['**/*'],
     ios: {
@@ -29,6 +36,11 @@ export default {
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
         backgroundColor: '#ffffff',
+      },
+      config: {
+        googleMaps: {
+          apiKey: process.env.GOOGLE_MAPS_API,
+        },
       },
     },
     web: {

@@ -5,16 +5,16 @@ import {BarCodeScanner} from 'expo-barcode-scanner';
 import styles from '../util/styles';
 
 const Scanner = () => {
-  const [hasPermission, setHasPermission] = useState(null);
+  const [permission, setPermission] = useState(null);
   const [scanned, setScanned] = useState(true);
 
   useEffect(() => {
-    const getBarCodeScannerPermissions = async () => {
+    const getPermission = async () => {
       const {status} = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
+      setPermission(status === 'granted');
     };
 
-    getBarCodeScannerPermissions();
+    getPermission();
   }, []);
 
   const handleBarCodeScanned = ({type, data}) => {
@@ -26,17 +26,17 @@ const Scanner = () => {
 
   return (
     <View style={styles.container}>
-      {hasPermission === null ? (
-        <Text>Requesting for camera permission</Text>
-      ) : hasPermission === false ? (
-        <Text>No access to camera</Text>
-      ) : (
+      {permission ? (
         !scanned && (
           <BarCodeScanner
             onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
             style={StyleSheet.absoluteFillObject}
           />
         )
+      ) : !permission ? (
+        <Text>No access to camera</Text>
+      ) : (
+        <Text>Requesting permission...</Text>
       )}
       {scanned && (
         <Button onPress={() => setScanned(false)} mode="contained">
