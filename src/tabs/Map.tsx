@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import MapView from 'react-native-maps';
-import styles from '../styles';
+import styles from '../util/styles';
 
 // https://docs.expo.dev/versions/latest/sdk/map-view/
 // latitudeDelta and longitudeDelta refers to zoom/scale

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Card, Title, Paragraph, IconButton} from 'react-native-paper';
-import styles from '../styles';
+import styles from '../util/styles';
 
 const Home = () => {
   return (

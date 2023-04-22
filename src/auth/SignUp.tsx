@@ -1,15 +1,15 @@
 /* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {TextInput, Button, Text} from 'react-native-paper';
-import {AuthContext} from '../util/AuthContext';
-import styles from '../styles';
+import {TextInput, Button, Text, RadioButton} from 'react-native-paper';
+import {AuthContext, Roles} from '../util/AuthContext';
+import styles from '../util/styles';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [pass01, setPass01] = useState('');
   const [pass02, setPass02] = useState('');
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState(Roles.Anon.toString());
   const {signUp, status} = React.useContext(AuthContext);
 
   const onSignUp = () => {
@@ -58,6 +58,10 @@ const SignUp = () => {
         mode="flat"
         onChangeText={setPass02}
       />
+      <RadioButton.Group onValueChange={newRole => setRole(newRole)} value={role}>
+        <RadioButton.Item label="Sign up as User" value={Roles.User.toString()} />
+        <RadioButton.Item label="Sign up as Admin" value={Roles.Admin.toString()} />
+      </RadioButton.Group>
       <Button
         style={{margin: 15}}
         icon="login"

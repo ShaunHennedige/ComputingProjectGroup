@@ -1,6 +1,6 @@
 {
   "compilerOptions": {},
   "extends": "expo/tsconfig.base",
-  "include": ["src/**/*.tsx"],
+  "include": ["src/**/*.tsx", "src/**/*.ts"],
   "exclude": ["node_modules/*"]
 }

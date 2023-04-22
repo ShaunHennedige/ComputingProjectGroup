@@ -2,12 +2,14 @@ import React from 'react';
 import {
   getAuth,
   onAuthStateChanged,
+  beforeAuthStateChanged,
   signInAnonymously,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import {app} from '../../config/firebaseConfig';
+import {app} from '../../config/FirebaseConfig';
+import {setUserData, getUserData} from './FirestoreUtils';
 
 const authState = getAuth(app);
 
@@ -37,69 +39,79 @@ const AuthProvider = ({children}) => {
   const signInFunc = async (email: string, password: string) => {
     setLoading(true);
     try {
+      // user sign in
       await signInWithEmailAndPassword(authState, email, password);
       setStatus('');
-      // get role
     } catch (error) {
       console.log(error.message);
-      setStatus('Invalid Credentials');
-    } finally {
-      setLoading(false);
+      setStatus('Something went wrong. Please try again.');
     }
   };
 
-  const signUpFunc = async (email: string, password: string, role: string) => {
+  const signUpFunc = async (
+    email: string,
+    password: string,
+    optRole: Roles,
+  ) => {
     setLoading(true);
     try {
-      await createUserWithEmailAndPassword(authState, email, password);
+      // user sign up
+      const {user} = await createUserWithEmailAndPassword(
+        authState,
+        email,
+        password,
+      );
+      // set user role
+      await setUserData(user.uid, {role: optRole});
+      setRole(optRole);
       setStatus('');
-      // assign role
     } catch (error) {
       console.log(error.message);
-      setStatus('Something went wrong. Please try again later.');
-    } finally {
-      setLoading(false);
+      setStatus('Something went wrong. Please try again.');
     }
   };
 
   const anonLogFunc = async () => {
     setLoading(true);
     try {
+      // anon mode
       await signInAnonymously(authState);
       setStatus('');
-      // assign role
     } catch (error) {
       console.log(error.message);
-      setStatus('Something went wrong. Please try again later.');
-    } finally {
-      setLoading(false);
+      setStatus('Something went wrong. Please try again.');
     }
   };
 
   const signOutFunc = async () => {
-    setLoading(true);
-    setRole(Roles.Anon);
     signOut(authState);
-    setLoading(false);
+    setRole(Roles.Anon);
   };
 
   React.useEffect(() => {
-    const evalLogged = (state: boolean) => {
+    const evalLogged = async (state: boolean, uid: any = null) => {
+      if (uid !== null) {
+        const userData = await getUserData(uid);
+        userData.exists() ? setRole(userData.get('role')) : null;
+      }
       state ? setLogged(true) : setLogged(false);
       setLoading(false);
     };
 
+    // watches auth state changes runs a callback before the change
+    beforeAuthStateChanged(authState, () => {
+      setLoading(true);
+    });
+
     // looks out for changes in auth state
     // important when loading user sessions at startup
-    onAuthStateChanged(authState, user => {
+    onAuthStateChanged(authState, async user => {
       if (user) {
         console.log(`User found: ${user.uid}`);
-        // remove next line
-        setRole(Roles.User);
-        evalLogged(true);
+        await evalLogged(true, user.uid);
       } else {
-        console.log('No users found.');
-        evalLogged(false);
+        console.log('No user found.');
+        await evalLogged(false);
       }
     });
   }, []);

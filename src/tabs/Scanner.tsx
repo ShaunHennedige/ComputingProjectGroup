@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Text, Button} from 'react-native-paper';
 import {BarCodeScanner} from 'expo-barcode-scanner';
-import styles from '../styles';
+import styles from '../util/styles';
 
 const Scanner = () => {
   const [hasPermission, setHasPermission] = useState(null);

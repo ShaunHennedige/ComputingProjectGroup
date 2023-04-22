@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Text} from 'react-native-paper';
-import styles from '../styles';
+import styles from '../util/styles';
 
 const Admin = () => {
   return (

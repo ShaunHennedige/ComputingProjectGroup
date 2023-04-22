@@ -5,7 +5,7 @@ import {AuthContext} from '../util/AuthContext';
 import {StackScreenProps, createStackNavigator} from '@react-navigation/stack';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
-import styles from '../styles';
+import styles from '../util/styles';
 
 const Auth: React.FC<StackScreenProps<any>> = ({navigation}) => {
   const {anonLog} = React.useContext(AuthContext);

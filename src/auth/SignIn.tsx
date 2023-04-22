@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import {AuthContext} from '../util/AuthContext';
-import styles from '../styles';
+import styles from '../util/styles';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
