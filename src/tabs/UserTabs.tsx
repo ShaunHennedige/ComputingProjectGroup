@@ -7,6 +7,8 @@ import Map from './Map';
 import Scanner from './Scanner';
 import Admin from './Admin';
 import Settings from './Settings';
+import Payment from './Payment';
+import Checkout from '../util/Checkout';
 
 const UserTabs = createBottomTabNavigator();
 const UserTabsScreen = () => {
@@ -35,11 +37,17 @@ const UserTabsScreen = () => {
             case 'Settings':
               iconname = 'cog';
               break;
+            case 'Payment':
+              iconname = 'paypal';
+              break;
+            case 'Checkout':
+              iconname = 'check-square-o';
+              break;
           }
           return <Icon name={iconname} color={color} size={size} />;
         },
       })}>
-      {role === Roles.Admin ? (
+      {role === Roles.Driver ? (
         <>
           <UserTabs.Screen name="Home" component={Home} />
           <UserTabs.Screen name="Admin" component={Admin} />
@@ -54,6 +62,7 @@ const UserTabsScreen = () => {
             options={{headerShown: false}}
           />
           <UserTabs.Screen name="Scanner" component={Scanner} />
+          {/* <UserTabs.Screen name="Checkout" component={Checkout} /> */}
           <UserTabs.Screen name="Settings" component={Settings} />
         </>
       ) : (

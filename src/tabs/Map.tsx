@@ -2,6 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {Text} from 'react-native-paper';
 import MapView, {MapMarker, PROVIDER_GOOGLE} from 'react-native-maps';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Icon from '@expo/vector-icons/FontAwesome';
 import * as Location from 'expo-location';
 import styles from '../util/styles';
@@ -16,6 +17,7 @@ const Map = () => {
     longitudeDelta: 0.2,
   });
   const [permission, setPermission] = React.useState(null);
+  const insets = useSafeAreaInsets();
 
   React.useEffect(() => {
     const initiateMap = async () => {
@@ -39,7 +41,14 @@ const Map = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        ...styles.container,
+        paddingTop: insets.top,
+        paddingBottom: insets.bottom,
+        paddingLeft: insets.left,
+        paddingRight: insets.right,
+      }}>
       {permission ? (
         <MapView
           style={styles.maps}

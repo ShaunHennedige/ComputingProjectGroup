@@ -14,7 +14,6 @@ const SignUp = () => {
 
   const onSignUp = () => {
     if (pass01 !== pass02) {
-      // eslint-disable-next-line no-alert
       alert('Password confirmation does not match!');
     } else {
       signUp(email, pass01, role);
@@ -59,8 +58,8 @@ const SignUp = () => {
         onChangeText={setPass02}
       />
       <RadioButton.Group onValueChange={newRole => setRole(newRole)} value={role}>
-        <RadioButton.Item label="Sign up as User" value={Roles.User.toString()} />
-        <RadioButton.Item label="Sign up as Admin" value={Roles.Admin.toString()} />
+        <RadioButton.Item label="Sign up as a Passenger" value={Roles.User.toString()} />
+        <RadioButton.Item label="Sign up as a Driver" value={Roles.Driver.toString()} />
       </RadioButton.Group>
       <Button
         style={{margin: 15}}

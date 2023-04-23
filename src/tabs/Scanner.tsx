@@ -19,7 +19,6 @@ const Scanner = () => {
 
   const handleBarCodeScanned = ({type, data}) => {
     setScanned(true);
-    // eslint-disable-next-line no-alert
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     // logic for handling the scanned qr goes here
   };

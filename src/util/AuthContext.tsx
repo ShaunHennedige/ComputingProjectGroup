@@ -11,7 +11,7 @@ import {auth} from '../../config/FirebaseConfig';
 import {setUserData, getUserData} from './FirestoreUtils';
 
 enum Roles {
-  Admin = 'ADMIN',
+  Driver = 'DRIVER',
   User = 'USER',
   Anon = 'ANON',
 }

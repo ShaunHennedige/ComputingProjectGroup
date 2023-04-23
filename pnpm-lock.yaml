@@ -16,6 +16,9 @@ dependencies:
   '@react-navigation/stack':
     specifier: ^6.3.16
     version: 6.3.16(@react-navigation/native@6.1.6)(react-native-gesture-handler@2.9.0)(react-native-safe-area-context@4.5.0)(react-native-screens@3.20.0)(react-native@0.71.6)(react@18.2.0)
+  '@stripe/stripe-react-native':
+    specifier: 0.23.3
+    version: 0.23.3(expo@48.0.9)(react-native@0.71.6)(react@18.2.0)
   expo:
     specifier: ~48.0.9
     version: 48.0.9(@babel/core@7.20.2)
@@ -61,6 +64,9 @@ dependencies:
   react-native-vector-icons:
     specifier: ^9.2.0
     version: 9.2.0
+  react-native-webview:
+    specifier: 11.26.0
+    version: 11.26.0(react-native@0.71.6)(react@18.2.0)
 
 devDependencies:
   '@babel/core':
@@ -2823,6 +2829,21 @@ packages:
     resolution: {integrity: sha512-SwUDyjWnah1AaNl7kxsa7cfLhlTYoiyhDAIgyh+El30YvXs/o7OLXpYH88Zdhyx9JExKrmHDJ+10bwIcY80Jmw==}
     dependencies:
       '@sinonjs/commons': 2.0.0
+    dev: false
+
+  /@stripe/stripe-react-native@0.23.3(expo@48.0.9)(react-native@0.71.6)(react@18.2.0):
+    resolution: {integrity: sha512-jfvmNDYxjkIdc/Hths3wdKAAXThAf+IieV+KQhd5b7f1eWrTXBzA9IzUZkXb73r/LiSw/GB5K4bBOJTDjgvd+A==}
+    peerDependencies:
+      expo: '>=46.0.9'
+      react: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      expo:
+        optional: true
+    dependencies:
+      expo: 48.0.9(@babel/core@7.20.2)
+      react: 18.2.0
+      react-native: 0.71.6(@babel/core@7.20.2)(@babel/preset-env@7.20.2)(react@18.2.0)
     dev: false
 
   /@types/geojson@7946.0.10:
@@ -7572,6 +7593,18 @@ packages:
     dependencies:
       prop-types: 15.8.1
       yargs: 16.2.0
+    dev: false
+
+  /react-native-webview@11.26.0(react-native@0.71.6)(react@18.2.0):
+    resolution: {integrity: sha512-4T4CKRm8xlaQDz9h/bCMPGAvtkesrhkRWqCX9FDJEzBToaVUIsV0ZOqtC4w/JSnCtFKKYiaC1ReJtCGv+4mFeQ==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      escape-string-regexp: 2.0.0
+      invariant: 2.2.4
+      react: 18.2.0
+      react-native: 0.71.6(@babel/core@7.20.2)(@babel/preset-env@7.20.2)(react@18.2.0)
     dev: false
 
   /react-native@0.71.6(@babel/core@7.20.2)(@babel/preset-env@7.20.2)(react@18.2.0):
