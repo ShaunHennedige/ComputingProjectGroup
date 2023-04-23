@@ -6,6 +6,7 @@ import {AuthContext, Roles} from '../util/AuthContext';
 import styles from '../util/styles';
 
 const SignUp = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [pass01, setPass01] = useState('');
   const [pass02, setPass02] = useState('');
@@ -15,15 +16,17 @@ const SignUp = () => {
   const onSignUp = () => {
     if (pass01 !== pass02) {
       alert('Password confirmation does not match!');
+    } else if (name === '' || email === '') {
+      alert('Please fill all fields appropiately.');
     } else {
-      signUp(email, pass01, role);
+      signUp(email, pass01, {role, name});
     }
   };
 
   return (
     <View style={styles.auth}>
       <Text variant="bodyMedium" style={{alignSelf: 'center'}}>
-        Welcome to our Travel Companion app. To get started, please enter your details below.
+        Welcome to RouteSync service. To get started, please enter your details below.
       </Text>
       {!!status && (
         <Text
@@ -37,6 +40,12 @@ const SignUp = () => {
           {status}
         </Text>
       )}
+      <TextInput
+        style={{marginTop: 15}}
+        label="Name/Alias"
+        mode="flat"
+        onChangeText={setName}
+      />
       <TextInput
         style={{marginTop: 15}}
         label="E-mail"

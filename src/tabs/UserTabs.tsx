@@ -6,13 +6,13 @@ import Home from './Home';
 import Map from './Map';
 import Scanner from './Scanner';
 import Admin from './Admin';
-import Settings from './Settings';
+import Profile from './Profile';
 import Payment from './Payment';
 import Checkout from '../util/Checkout';
 
 const UserTabs = createBottomTabNavigator();
 const UserTabsScreen = () => {
-  const {role} = React.useContext(AuthContext);
+  const {userData} = React.useContext(AuthContext);
 
   return (
     <UserTabs.Navigator
@@ -22,7 +22,7 @@ const UserTabsScreen = () => {
           let iconname: any;
 
           switch (route.name) {
-            case 'Home':
+            case 'Dashboard':
               iconname = 'home';
               break;
             case 'Map':
@@ -34,8 +34,8 @@ const UserTabsScreen = () => {
             case 'Admin':
               iconname = 'info-circle';
               break;
-            case 'Settings':
-              iconname = 'cog';
+            case 'Profile':
+              iconname = 'user';
               break;
             case 'Payment':
               iconname = 'paypal';
@@ -47,15 +47,15 @@ const UserTabsScreen = () => {
           return <Icon name={iconname} color={color} size={size} />;
         },
       })}>
-      {role === Roles.Driver ? (
+      {userData.role === Roles.Driver ? (
         <>
-          <UserTabs.Screen name="Home" component={Home} />
+          <UserTabs.Screen name="Dashboard" component={Home} />
           <UserTabs.Screen name="Admin" component={Admin} />
-          <UserTabs.Screen name="Settings" component={Settings} />
+          <UserTabs.Screen name="Profile" component={Profile} />
         </>
-      ) : role === Roles.User ? (
+      ) : userData.role === Roles.User ? (
         <>
-          <UserTabs.Screen name="Home" component={Home} />
+          <UserTabs.Screen name="Dashboard" component={Home} />
           <UserTabs.Screen
             name="Map"
             component={Map}
@@ -63,13 +63,13 @@ const UserTabsScreen = () => {
           />
           <UserTabs.Screen name="Scanner" component={Scanner} />
           {/* <UserTabs.Screen name="Checkout" component={Checkout} /> */}
-          <UserTabs.Screen name="Settings" component={Settings} />
+          <UserTabs.Screen name="Profile" component={Profile} />
         </>
       ) : (
         <>
-          <UserTabs.Screen name="Home" component={Home} />
+          <UserTabs.Screen name="Dashboard" component={Home} />
           <UserTabs.Screen name="Scanner" component={Scanner} />
-          <UserTabs.Screen name="Settings" component={Settings} />
+          <UserTabs.Screen name="Profile" component={Profile} />
         </>
       )}
     </UserTabs.Navigator>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, Image} from 'react-native';
 import {Text} from 'react-native-paper';
 import MapView, {MapMarker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -57,6 +57,16 @@ const Map = () => {
           onRegionChangeComplete={region => setRegion(region)}>
           <MapMarker title="You" coordinate={location}>
             <Icon size={28} name="user-circle-o" />
+          </MapMarker>
+          <MapMarker
+            title="Bus"
+            description="ID: 003"
+            coordinate={{latitude: 6.721304, longitude: 80.043572}}>
+            <Image
+              source={require('../../assets/minibus.png')}
+              style={{height: 24}}
+              resizeMode="contain"
+            />
           </MapMarker>
         </MapView>
       ) : !permission ? (

@@ -2,7 +2,7 @@ import 'dotenv/config';
 
 export default {
   expo: {
-    name: 'Travel App',
+    name: 'RouteSync',
     slug: 'computing-project-app',
     version: '1.0.0',
     orientation: 'portrait',

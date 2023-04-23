@@ -5,6 +5,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
+    width: '100%',
   },
   auth: {
     flex: 1,
@@ -17,6 +19,9 @@ const styles = StyleSheet.create({
   maps: {
     height: '100%',
     width: '100%',
+  },
+  cardSection: {
+    margin: 10,
   },
 });
 

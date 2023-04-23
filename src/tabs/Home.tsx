@@ -1,25 +1,31 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Card, Title, Paragraph, IconButton} from 'react-native-paper';
+import {Card, Text, Avatar} from 'react-native-paper';
 import styles from '../util/styles';
+import {AuthContext} from '../util/AuthContext';
 
 const Home = () => {
+  const {userData} = React.useContext(AuthContext);
   return (
     <View style={styles.container}>
-      <Card>
-        <Card.Cover source={{uri: 'https://picsum.photos/id/690/200/300'}} />
+      <Card style={{width: '100%', flex: 1}}>
+        <Card.Cover source={require('../../assets/intro.gif')} />
+        <Card.Title
+          title={<Text variant="titleLarge">Welcome, {userData.name}!</Text>}
+          subtitle={'Account statistics:'}
+          // eslint-disable-next-line react/no-unstable-nested-components
+          left={props => <Avatar.Icon {...props} icon={'chart-bar'} />}
+        />
         <Card.Content>
-          <Title>Welcome to Passenger Transport App!</Title>
-          <Paragraph>
-            This app is under construction. Passengers will be able to handle
-            all their Transport related needs such as payment, tracking and
-            other information management.
-          </Paragraph>
+          <View style={styles.cardSection}>
+            <Text variant="bodyLarge">Total distance:</Text>
+            <Text variant="titleLarge">0 Km</Text>
+          </View>
+          <View style={styles.cardSection}>
+            <Text variant="bodyLarge">Total expense:</Text>
+            <Text variant="titleLarge">0 ~</Text>
+          </View>
         </Card.Content>
-        <Card.Actions>
-          <IconButton icon="heart-plus" onPress={() => {}} />
-          <IconButton icon="share" onPress={() => {}} />
-        </Card.Actions>
       </Card>
     </View>
   );

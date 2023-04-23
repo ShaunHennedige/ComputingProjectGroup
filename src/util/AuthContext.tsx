@@ -18,12 +18,16 @@ enum Roles {
 
 const AuthContext = React.createContext({
   signIn: (_email: string, _password: string) => {},
-  signUp: (_email: string, _password: string, _role: string) => {},
+  signUp: (
+    _email: string,
+    _password: string,
+    _data: {role: string; name: string},
+  ) => {},
   anonLog: () => {},
   signOut: () => {},
   loading: true,
   logged: false,
-  role: Roles.Anon,
+  userData: {role: Roles.Anon, name: ''},
   status: '',
 });
 
@@ -31,7 +35,10 @@ const AuthProvider = ({children}) => {
   const [loading, setLoading] = React.useState(true);
   const [logged, setLogged] = React.useState(false);
   const [status, setStatus] = React.useState('');
-  const [role, setRole] = React.useState<Roles>(Roles.Anon);
+  const [userData, setData] = React.useState({
+    role: Roles.Anon,
+    name: '<None>',
+  });
 
   const signInFunc = async (email: string, password: string) => {
     setLoading(true);
@@ -49,7 +56,7 @@ const AuthProvider = ({children}) => {
   const signUpFunc = async (
     email: string,
     password: string,
-    optRole: Roles,
+    data: {role: Roles; name: string},
   ) => {
     setLoading(true);
     try {
@@ -60,8 +67,8 @@ const AuthProvider = ({children}) => {
         password,
       );
       // set user role
-      await setUserData(user.uid, {role: optRole});
-      setRole(optRole);
+      await setUserData(user.uid, data);
+      setData({...data});
       setStatus('');
     } catch (error) {
       console.log(error.message);
@@ -85,14 +92,16 @@ const AuthProvider = ({children}) => {
 
   const signOutFunc = async () => {
     signOut(auth);
-    setRole(Roles.Anon);
+    setData({role: Roles.Anon, name: '<None>'});
   };
 
   React.useEffect(() => {
     const evalLogged = async (state: boolean, uid: any = null) => {
       if (uid !== null) {
-        const userData = await getUserData(uid);
-        userData.exists() ? setRole(userData.get('role')) : null;
+        const data = await getUserData(uid);
+        data.exists()
+          ? setData({role: data.get('role'), name: data.get('name')})
+          : null;
       }
       state ? setLogged(true) : setLogged(false);
       setLoading(false);
@@ -125,7 +134,7 @@ const AuthProvider = ({children}) => {
         signOut: signOutFunc,
         loading,
         logged,
-        role,
+        userData: userData,
         status,
       }}>
       {children}

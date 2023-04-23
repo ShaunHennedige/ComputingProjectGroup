@@ -13,8 +13,8 @@ const Auth: React.FC<StackScreenProps<any>> = ({navigation}) => {
   return (
     <View style={styles.auth}>
       <Image
-        source={require('../../assets/adaptive-icon.png')}
-        resizeMode="center"
+        source={require('../../assets/intro.gif')}
+        resizeMode="contain"
         style={{alignSelf: 'center', height: 280, margin: 15}}
       />
       <Button
@@ -42,8 +42,8 @@ const Auth: React.FC<StackScreenProps<any>> = ({navigation}) => {
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => {
   return (
-    <AuthStack.Navigator initialRouteName="Welcome">
-      <AuthStack.Screen name="Welcome" component={Auth} />
+    <AuthStack.Navigator>
+      <AuthStack.Screen name="RouteSync" component={Auth} />
       <AuthStack.Screen name="Sign In" component={SignIn} />
       <AuthStack.Screen name="Sign Up" component={SignUp} />
     </AuthStack.Navigator>

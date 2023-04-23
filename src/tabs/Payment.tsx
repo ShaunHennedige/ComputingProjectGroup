@@ -52,7 +52,7 @@ const Payment = (props: {checkout: number}) => {
                   fontWeight: 'bold',
                   color: '#00457C',
                 }}>
-                PayPal GateWay
+                Checkout
               </Text>
               <View style={{padding: 13, opacity: prog ? 1 : 0}}>
                 <ActivityIndicator size={24} color={progClr} />
