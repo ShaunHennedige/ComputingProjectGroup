@@ -4,11 +4,9 @@ import {AuthContext, Roles} from '../util/AuthContext';
 import Icon from '@expo/vector-icons/FontAwesome';
 import Home from './Home';
 import Map from './Map';
-import Scanner from './Scanner';
+import Checkout from './Checkout';
 import Admin from './Admin';
 import Profile from './Profile';
-import Payment from './Payment';
-import Checkout from '../util/Checkout';
 
 const UserTabs = createBottomTabNavigator();
 const UserTabsScreen = () => {
@@ -28,7 +26,7 @@ const UserTabsScreen = () => {
             case 'Map':
               iconname = 'map';
               break;
-            case 'Scanner':
+            case 'Checkout':
               iconname = 'qrcode';
               break;
             case 'Admin':
@@ -53,7 +51,7 @@ const UserTabsScreen = () => {
           <UserTabs.Screen name="Admin" component={Admin} />
           <UserTabs.Screen name="Profile" component={Profile} />
         </>
-      ) : userData.role === Roles.User ? (
+      ) : (
         <>
           <UserTabs.Screen name="Dashboard" component={Home} />
           <UserTabs.Screen
@@ -61,14 +59,7 @@ const UserTabsScreen = () => {
             component={Map}
             options={{headerShown: false}}
           />
-          <UserTabs.Screen name="Scanner" component={Scanner} />
-          {/* <UserTabs.Screen name="Checkout" component={Checkout} /> */}
-          <UserTabs.Screen name="Profile" component={Profile} />
-        </>
-      ) : (
-        <>
-          <UserTabs.Screen name="Dashboard" component={Home} />
-          <UserTabs.Screen name="Scanner" component={Scanner} />
+          <UserTabs.Screen name="Checkout" component={Checkout} />
           <UserTabs.Screen name="Profile" component={Profile} />
         </>
       )}

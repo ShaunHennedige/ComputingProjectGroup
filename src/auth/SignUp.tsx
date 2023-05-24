@@ -11,6 +11,7 @@ const SignUp = () => {
   const [pass01, setPass01] = useState('');
   const [pass02, setPass02] = useState('');
   const [role, setRole] = useState(Roles.Anon.toString());
+  const [transport, setTransport] = useState('0');
   const {signUp, status} = React.useContext(AuthContext);
 
   const onSignUp = () => {
@@ -19,7 +20,7 @@ const SignUp = () => {
     } else if (name === '' || email === '') {
       alert('Please fill all fields appropiately.');
     } else {
-      signUp(email, pass01, {role, name});
+      signUp(email, pass01, {role, name, transport});
     }
   };
 
@@ -70,6 +71,14 @@ const SignUp = () => {
         <RadioButton.Item label="Sign up as a Passenger" value={Roles.User.toString()} />
         <RadioButton.Item label="Sign up as a Driver" value={Roles.Driver.toString()} />
       </RadioButton.Group>
+      {role === Roles.Driver && (
+        <TextInput
+          style={{marginTop: 15}}
+          label="Your transport ID"
+          mode="flat"
+          onChangeText={setTransport}
+        />
+      )}
       <Button
         style={{margin: 15}}
         icon="login"

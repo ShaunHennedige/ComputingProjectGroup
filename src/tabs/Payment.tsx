@@ -4,85 +4,82 @@ import {Text, ActivityIndicator} from 'react-native-paper';
 import {WebView} from 'react-native-webview';
 import Feather from 'react-native-vector-icons/Feather';
 
-const Payment = (props: {checkout: number}) => {
-  const [showGateway, setShowGateway] = useState(false);
+const Payment = (props: {
+  paymentData: {fee: number; transport: number};
+  isPaying: boolean;
+  setIsPaying: (state: boolean) => void;
+}) => {
   const [prog, setProg] = useState(false);
   const [progClr, setProgClr] = useState('#000');
 
-  function onMessage(e) {
+  const onMessage = async (e: any) => {
     let data = e.nativeEvent.data;
-    setShowGateway(false);
+    props.setIsPaying(false);
+    console.log(props.paymentData);
     console.log(data);
     let payment = JSON.parse(data);
     if (payment.status === 'COMPLETED') {
-      alert('PAYMENT MADE SUCCESSFULLY!');
+      alert('Payment successful. Have a great day!');
+      // include logic
     } else {
-      alert('PAYMENT FAILED. PLEASE TRY AGAIN.');
+      alert('Payment failed. Please try again.');
+      // include logic
     }
-  }
+  };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.btnCon}>
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => setShowGateway(true)}>
-          <Text style={styles.btnTxt}>Pay Using PayPal</Text>
-        </TouchableOpacity>
-      </View>
-      {showGateway ? (
-        <Modal
-          visible={showGateway}
-          onDismiss={() => setShowGateway(false)}
-          onRequestClose={() => setShowGateway(false)}
-          animationType={'fade'}
-          transparent>
-          <View style={styles.webViewCon}>
-            <View style={styles.wbHead}>
-              <TouchableOpacity
-                style={{padding: 13}}
-                onPress={() => setShowGateway(false)}>
-                <Feather name={'x'} size={24} />
-              </TouchableOpacity>
-              <Text
-                style={{
-                  flex: 1,
-                  textAlign: 'center',
-                  fontSize: 16,
-                  fontWeight: 'bold',
-                  color: '#00457C',
-                }}>
-                Checkout
-              </Text>
-              <View style={{padding: 13, opacity: prog ? 1 : 0}}>
-                <ActivityIndicator size={24} color={progClr} />
-              </View>
+    <>
+      <Modal
+        visible={props.isPaying}
+        onDismiss={() => props.setIsPaying(false)}
+        onRequestClose={() => props.setIsPaying(false)}
+        animationType={'slide'}
+        transparent>
+        <View style={styles.webViewCon}>
+          <View style={styles.wbHead}>
+            <TouchableOpacity
+              style={{padding: 13}}
+              onPress={() => props.setIsPaying(false)}>
+              <Feather name={'x'} size={24} />
+            </TouchableOpacity>
+            <Text
+              style={{
+                flex: 1,
+                textAlign: 'center',
+                fontSize: 16,
+                fontWeight: 'bold',
+                color: '#00457C',
+              }}>
+              Checkout
+            </Text>
+            <View style={{padding: 13, opacity: prog ? 1 : 0}}>
+              <ActivityIndicator size={24} color={progClr} />
             </View>
-            <WebView
-              source={{
-                uri: `https://computing-project-app.web.app/?d=${props.checkout}`,
-              }}
-              style={{flex: 1}}
-              onLoadStart={() => {
-                setProg(true);
-                setProgClr('#000');
-              }}
-              onLoadProgress={() => {
-                setProg(true);
-                setProgClr('#00457C');
-              }}
-              onLoadEnd={() => {
-                setProg(false);
-              }}
-              onLoad={() => {
-                setProg(false);
-              }}
-              onMessage={onMessage}
-            />
           </View>
-        </Modal>
-      ) : null}
-    </View>
+          <WebView
+            source={{
+              uri: `https://computing-project-app.web.app/?d=${props.paymentData.fee}`,
+            }}
+            style={{flex: 1}}
+            onLoadStart={() => {
+              setProg(true);
+              setProgClr('#000');
+            }}
+            onLoadProgress={() => {
+              setProg(true);
+              setProgClr('#00457C');
+            }}
+            onLoadEnd={() => {
+              setProg(false);
+            }}
+            onLoad={() => {
+              setProg(false);
+            }}
+            onMessage={onMessage}
+          />
+        </View>
+      </Modal>
+    </>
   );
 };
 

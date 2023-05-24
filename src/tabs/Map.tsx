@@ -28,6 +28,7 @@ const Map = () => {
         coords: {latitude, longitude},
       } = await Location.getCurrentPositionAsync({});
       setLocation({latitude, longitude});
+      console.log(`${latitude},${longitude}`);
 
       setRegion({
         latitude,

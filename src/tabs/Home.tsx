@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {Card, Text, Avatar} from 'react-native-paper';
 import styles from '../util/styles';
-import {AuthContext} from '../util/AuthContext';
+import {AuthContext, Roles} from '../util/AuthContext';
 
 const Home = () => {
   const {userData} = React.useContext(AuthContext);
@@ -11,8 +11,14 @@ const Home = () => {
       <Card style={{width: '100%', flex: 1}}>
         <Card.Cover source={require('../../assets/intro.gif')} />
         <Card.Title
-          title={<Text variant="titleLarge">Welcome, {userData.name}!</Text>}
-          subtitle={'Account statistics:'}
+          title={
+            <Text variant="titleLarge">
+              {userData.role === Roles.Anon
+                ? 'Welcome!'
+                : `Welcome, ${userData.name}!`}
+            </Text>
+          }
+          subtitle={'Your RouteSync statistics:'}
           // eslint-disable-next-line react/no-unstable-nested-components
           left={props => <Avatar.Icon {...props} icon={'chart-bar'} />}
         />

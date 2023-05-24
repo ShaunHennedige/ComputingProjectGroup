@@ -25,7 +25,7 @@ const LoadStatus = (props: {isLoading: boolean}) => {
           alignItems: 'center',
         }}>
         <ActivityIndicator animating={true} />
-        <Text variant="titleMedium">Loading</Text>
+        <Text variant="titleMedium">Processing</Text>
       </Modal>
     </Portal>
   );

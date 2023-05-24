@@ -21,13 +21,13 @@ const AuthContext = React.createContext({
   signUp: (
     _email: string,
     _password: string,
-    _data: {role: string; name: string},
+    _data: {role: string; name: string; transport: string},
   ) => {},
   anonLog: () => {},
   signOut: () => {},
   loading: true,
   logged: false,
-  userData: {role: Roles.Anon, name: ''},
+  userData: {role: Roles.Anon, name: '', transport: '0'},
   status: '',
 });
 
@@ -37,7 +37,8 @@ const AuthProvider = ({children}) => {
   const [status, setStatus] = React.useState('');
   const [userData, setData] = React.useState({
     role: Roles.Anon,
-    name: '<None>',
+    name: 'None',
+    transport: '0',
   });
 
   const signInFunc = async (email: string, password: string) => {
@@ -56,7 +57,7 @@ const AuthProvider = ({children}) => {
   const signUpFunc = async (
     email: string,
     password: string,
-    data: {role: Roles; name: string},
+    data: {role: Roles; name: string; transport: string},
   ) => {
     setLoading(true);
     try {
@@ -66,8 +67,9 @@ const AuthProvider = ({children}) => {
         email,
         password,
       );
-      // set user role
-      await setUserData(user.uid, data);
+      data.role === Roles.Driver
+        ? await setUserData(user.uid, data)
+        : await setUserData(user.uid, {role: data.role, name: data.name});
       setData({...data});
       setStatus('');
     } catch (error) {
@@ -92,7 +94,7 @@ const AuthProvider = ({children}) => {
 
   const signOutFunc = async () => {
     signOut(auth);
-    setData({role: Roles.Anon, name: '<None>'});
+    setData({role: Roles.Anon, name: '<None>', transport: '0'});
   };
 
   React.useEffect(() => {
@@ -100,7 +102,17 @@ const AuthProvider = ({children}) => {
       if (uid !== null) {
         const data = await getUserData(uid);
         data.exists()
-          ? setData({role: data.get('role'), name: data.get('name')})
+          ? data.get('role') === Roles.Driver
+            ? setData({
+                role: data.get('role'),
+                name: data.get('name'),
+                transport: data.get('transport'),
+              })
+            : setData({
+                role: data.get('role'),
+                name: data.get('name'),
+                transport: '0',
+              })
           : null;
       }
       state ? setLogged(true) : setLogged(false);
