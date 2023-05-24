@@ -64,7 +64,10 @@ const Checkout = () => {
               onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
               style={StyleSheet.absoluteFillObject}
             />
-            <Button onPress={() => setScanned(true)} mode="contained">
+            <Button
+              onPress={() => setScanned(true)}
+              mode="contained"
+              style={{position: 'absolute', bottom: 1, margin: 10}}>
               Tap to Cancel
             </Button>
           </>
