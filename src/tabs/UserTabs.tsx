@@ -66,5 +66,4 @@ const UserTabsScreen = () => {
     </UserTabs.Navigator>
   );
 };
-
 export {UserTabsScreen};

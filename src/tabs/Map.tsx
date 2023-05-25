@@ -57,12 +57,16 @@ const Map = () => {
     getUserLoc();
     markerStream();
   }, []);
+<<<<<<< Updated upstream
 
   const refreshMap = () => {
     getUserLoc();
     markerStream();
   };
 
+=======
+  
+>>>>>>> Stashed changes
   return (
     <View
       style={{
