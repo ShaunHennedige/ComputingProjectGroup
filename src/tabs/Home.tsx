@@ -23,14 +23,42 @@ const Home = () => {
           left={props => <Avatar.Icon {...props} icon={'chart-bar'} />}
         />
         <Card.Content>
-          <View style={styles.cardSection}>
-            <Text variant="bodyLarge">Total distance:</Text>
-            <Text variant="titleLarge">0 Km</Text>
-          </View>
-          <View style={styles.cardSection}>
-            <Text variant="bodyLarge">Total expense:</Text>
-            <Text variant="titleLarge">0 ~</Text>
-          </View>
+          {userData.role === Roles.Driver ? (
+            <>
+              <View style={styles.cardSection}>
+                <Text variant="bodyLarge">Total revenue this month:</Text>
+                <Text variant="titleLarge">Rs. 0</Text>
+              </View>
+              <View style={styles.cardSection}>
+                <Text variant="bodyLarge">Passengers this month</Text>
+                <Text variant="titleLarge">0 passengers</Text>
+              </View>
+              <View style={styles.cardSection}>
+                <Text variant="bodyLarge">Your transport ID:</Text>
+                <Text variant="titleLarge">{userData.transport}</Text>
+              </View>
+            </>
+          ) : userData.role === Roles.User ? (
+            <>
+              <View style={styles.cardSection}>
+                <Text variant="bodyLarge">Total fare this month:</Text>
+                <Text variant="titleLarge">Rs. 0</Text>
+              </View>
+              <View style={styles.cardSection}>
+                <Text variant="bodyLarge">Trips taken this month:</Text>
+                <Text variant="titleLarge">0</Text>
+              </View>
+            </>
+          ) : (
+            <>
+              <View style={styles.cardSection}>
+                <Text variant="bodyLarge">NOTE</Text>
+                <Text variant="titleLarge">
+                  Statistics are not available for anonymous users
+                </Text>
+              </View>
+            </>
+          )}
         </Card.Content>
       </Card>
     </View>

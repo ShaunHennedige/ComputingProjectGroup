@@ -5,7 +5,7 @@ import Icon from '@expo/vector-icons/FontAwesome';
 import Home from './Home';
 import Map from './Map';
 import Checkout from './Checkout';
-import Admin from './Admin';
+import Generate from './Generate';
 import Profile from './Profile';
 
 const UserTabs = createBottomTabNavigator();
@@ -29,7 +29,7 @@ const UserTabsScreen = () => {
             case 'Checkout':
               iconname = 'qrcode';
               break;
-            case 'Admin':
+            case 'Generate QR':
               iconname = 'info-circle';
               break;
             case 'Profile':
@@ -48,7 +48,7 @@ const UserTabsScreen = () => {
       {userData.role === Roles.Driver ? (
         <>
           <UserTabs.Screen name="Dashboard" component={Home} />
-          <UserTabs.Screen name="Admin" component={Admin} />
+          <UserTabs.Screen name="Generate QR" component={Generate} />
           <UserTabs.Screen name="Profile" component={Profile} />
         </>
       ) : (
@@ -66,4 +66,5 @@ const UserTabsScreen = () => {
     </UserTabs.Navigator>
   );
 };
+
 export {UserTabsScreen};

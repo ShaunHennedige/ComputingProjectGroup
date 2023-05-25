@@ -19,7 +19,9 @@ const Payment = (props: {
     console.log(data);
     let payment = JSON.parse(data);
     if (payment.status === 'COMPLETED') {
-      alert('Payment successful. Have a great day!');
+      alert(
+        `Fare paid for transport ${props.paymentData.transport}. Have a great day!`,
+      );
       // include logic
     } else {
       alert('Payment failed. Please try again.');
